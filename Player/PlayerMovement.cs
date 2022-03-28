@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerComponents))] //Hacemos que la clase PlayerMovement dependa de la clase PlayerComponents. De esta forma, siempre ir醤 juntas.
+[RequireComponent(typeof(PlayerComponents))] //Hacemos que la clase PlayerMovement dependa de la clase PlayerComponents. De esta forma, siempre ir谩n juntas.
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    // Control de aceleraci髇 de la velocidad.
+    // Control de aceleraci贸n de la velocidad.
     public float acceleration;
 
-    // Velocidad m醲ima del jugador.
+    // Velocidad m谩xima del jugador.
     public float maxSpeed;
 
     // Variables para controlar la velocidad de desplazamiento.
     public float xSpeed, ySpeed;
 
-    // Vector que recuperamos del sistema de inputs mediante la pulsaci髇 de WASD.
+    // Vector que recuperamos del sistema de inputs mediante la pulsaci贸n de WASD.
     public Vector2 movement;
 
     // Pertenenecia a los componentes del player.
@@ -43,11 +43,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement(float x, float y)
     {
-        // Modificamos la velocidad de X y Y de manera progresiva dependiendo de la aceleraci髇
+        // Modificamos la velocidad de X y Y de manera progresiva dependiendo de la aceleraci贸n
         xSpeed += acceleration * x * Time.deltaTime;
         ySpeed += acceleration * y * Time.deltaTime;
 
-        // Reducimos las velocidades si no se est醤 pulsando las teclas
+        // Reducimos las velocidades si no se est谩n pulsando las teclas
         if (x == 0)
         {
             xSpeed = Mathf.MoveTowards(xSpeed, 0f, acceleration * Time.deltaTime);
@@ -57,14 +57,14 @@ public class PlayerMovement : MonoBehaviour
             ySpeed = Mathf.MoveTowards(ySpeed, 0f, acceleration * Time.deltaTime);
         }
 
-        // Limitaci髇 de velocidad
+        // Limitaci贸n de velocidad
         xSpeed = Mathf.Clamp(xSpeed, -maxSpeed, maxSpeed);
         ySpeed = Mathf.Clamp(ySpeed, -maxSpeed, maxSpeed);
 
         // Asignamos un vector de movimiento
         Vector2 motion = new Vector2(xSpeed, ySpeed);
 
-        // Clampeamos la magnitud del vector para que no supere la velocidad m醲ima diagonal.
+        // Clampeamos la magnitud del vector para que no supere la velocidad m谩xima diagonal.
         motion = Vector2.ClampMagnitude(motion, maxSpeed);
 
         // Aplicamos el desplazamiento directamente sobre el velocity del rigidbody.
